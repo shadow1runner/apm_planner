@@ -63,6 +63,7 @@ This file is part of the QGROUNDCONTROL project
 #include "Mouse6dofInput.h"
 #endif // MOUSE_ENABLED_WIN
 #include "ParameterInterface.h"
+#include "OwnFlow/ui/OwnFlowInterface.h"
 #include "XMLCommProtocolWidget.h"
 #include "HDDisplay.h"
 #include "WatchdogControl.h"

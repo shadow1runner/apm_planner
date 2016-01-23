@@ -452,7 +452,8 @@ FORMS += \
     src/ui/DroneshareUploadDialog.ui \
     src/ui/DroneshareDialog.ui \
     src/ui/uas/PreFlightCalibrationDialog.ui \
-    src/ui/configuration/RadioFlashWizard.ui
+    src/ui/configuration/RadioFlashWizard.ui \
+    src/OwnFlow/ui/OwnFlowInterface.ui
 
 HEADERS += \
     src/MG.h \
@@ -681,7 +682,9 @@ HEADERS += \
     src/comm/LinkManagerFactory.h \
     src/ui/VibrationMonitor.h \
     src/ui/EKFMonitor.h \
-    src/Settings.h
+    src/Settings.h \
+    src/OwnFlow/ui/OwnFlowInterface.h
+
 
 SOURCES += src/main.cc \
     src/QGCCore.cc \
@@ -903,7 +906,9 @@ SOURCES += src/main.cc \
     src/comm/LinkManagerFactory.cpp \
     src/ui/VibrationMonitor.cpp \
     src/ui/EKFMonitor.cpp \
-    src/Settings.cpp
+    src/Settings.cpp \
+    src/OwnFlow/ui/OwnFlowInterface.cpp
+
 
 MacBuild | WindowsBuild : contains(GOOGLEEARTH, enable) { #fix this to make sense ;)
     message(Including support for Google Earth)

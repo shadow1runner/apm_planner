@@ -673,6 +673,8 @@ void MainWindow::buildCommonWidgets()
     createDockWidget(simView,new QGCWaypointListMulti(this),tr("Mission Plan"),"WAYPOINT_LIST_DOCKWIDGET",VIEW_SIMULATION,Qt::BottomDockWidgetArea);
     createDockWidget(simView,new ParameterInterface(this),tr("Parameters"),"PARAMETER_INTERFACE_DOCKWIDGET",VIEW_SIMULATION,Qt::RightDockWidgetArea);
 
+    createDockWidget(simView,new ParameterInterface(this),tr("OwnFlow"),"OWNFLOW_INTERFACE_DOCKWIDGET",VIEW_SIMULATION,Qt::RightDockWidgetArea);
+
 
     /*{ //Status details disabled until such a point that we can ensure it's completly operational
         QAction* tempAction = ui.menuTools->addAction(tr("Status Details"));
@@ -917,6 +919,10 @@ void MainWindow::loadDockWidget(QString name)
     else if (name == "PARAMETER_INTERFACE_DOCKWIDGET")
     {
         createDockWidget(centerStack->currentWidget(),new ParameterInterface(this),tr("Parameters"),"PARAMETER_INTERFACE_DOCKWIDGET",currentView,Qt::RightDockWidgetArea);
+    }
+    else if (name == "OWNFLOW_INTERFACE_DOCKWIDGET")
+    {
+        createDockWidget(centerStack->currentWidget(),new OwnFlowInterface(this),tr("Ownflow"),"OWNFLOW_INTERFACE_DOCKWIDGET",currentView,Qt::RightDockWidgetArea);
     }
     else if (name == "UAS_STATUS_DETAILS_DOCKWIDGET")
     {
@@ -1716,7 +1722,7 @@ void MainWindow::connectCommonActions()
     connect(ui.actionReloadStylesheet, SIGNAL(triggered()), this, SLOT(reloadStylesheet()));
     connect(ui.actionSelectStylesheet, SIGNAL(triggered()), this, SLOT(selectStylesheet()));
 
-    // Help Actions
+    // fp Actions
     connect(ui.actionOnline_Documentation, SIGNAL(triggered()), this, SLOT(showHelp()));
     connect(ui.actionDeveloper_Credits, SIGNAL(triggered()), this, SLOT(showCredits()));
     connect(ui.actionProject_Roadmap_2, SIGNAL(triggered()), this, SLOT(showRoadMap()));
