@@ -39,6 +39,8 @@ This file is part of the PIXHAWK project
 #include "UASManager.h"
 #include "LinkManager.h"
 #include "QGCMouseWheelEventFilter.h"
+#include "src/OwnFlow/ui/OwnFlowCore.h"
+
 /*#include "ViconTarsusProtocol.h" */
 #ifdef OPAL_RT
 
@@ -74,6 +76,7 @@ protected:
     void startUASManager();
 
 private:
+    hw::OwnFlowCore ownFlowCore;
     MainWindow* mainWindow;
     QGCMouseWheelEventFilter *m_mouseWheelFilter;
 };

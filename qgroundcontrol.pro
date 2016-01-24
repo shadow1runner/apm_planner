@@ -24,6 +24,7 @@
 
 
 message(Qt version $$[QT_VERSION])
+CONFIG += c++11
 
 # Setup our supported build types. We do this once here and then use the defined config scopes
 # to allow us to easily modify suported build types in one place instead of duplicated throughout
@@ -222,6 +223,52 @@ WindowsCrossBuild {
 
     DEFINES += GIT_COMMIT=$$system(git describe --dirty=-DEV --always)
     DEFINES += GIT_HASH=$$system(git log -n 1 --pretty=format:%H)
+
+    ##################
+    # opencv - http://stackoverflow.com/a/15890266
+    INCLUDEPATH += "E:\\dev\\opencv3\\install\\include" \
+                   "E:\\dev\\opencv3\\install\\include\\opencv" \
+                   "E:\\dev\\opencv3\\install\\include\\opencv2"
+
+    LIBS += "-LE:\\dev\\opencv3_x86\\bin" \
+        -lopencv_core310 \
+        -lopencv_highgui310 \
+        -lopencv_imgproc310 \
+        -lopencv_features2d310 \
+        -lopencv_calib3d310 \
+        -lopencv_flann310 \
+        -lopencv_imgcodecs310 \
+        -lopencv_ml310 \
+        -lopencv_objdetect310 \
+        -lopencv_photo310 \
+        -lopencv_shape310 \
+        -lopencv_stitching310 \
+        -lopencv_superres310 \
+        -lopencv_video310 \
+        -lopencv_videoio310 \
+        -lopencv_videostab310
+
+
+
+    # boost - http://stackoverflow.com/a/16998798
+    DEFINES += BOOST_THREAD_USE_LIB
+    #DEFINES += BOOST_THREAD_POSIX #https://svn.boost.org/trac/boost/ticket/5964
+    #DEFINES += BOOST_THREAD_LINUX
+    DEFINES += BOOST_SYSTEM_NO_DEPRECATED # http://stackoverflow.com/a/18851077
+
+    INCLUDEPATH += E:\\dev\\boost_1_60_0
+    LIBS += "-LE:/dev/boost_1_60_0/stage/lib/" \
+        -lboost_system-mgw49-mt-1_60 \
+    #    -lboost_thread-mgw49-mt-1_60 \
+        -lboost_date_time-mgw49-mt-1_60 \
+        -lboost_program_options-mgw49-mt-1_60 \
+    #    -lboost_filesystem-mgw49-mt-1_60 \
+        -lboost_regex-mgw49-mt-1_60
+
+    # http://stackoverflow.com/a/1782435; winsock aso http://stackoverflow.com/a/18210445, needed for boost::asio::io_service (used in multi-threading)
+    LIBS += -lws2_32
+
+    ##################
 }
 
 #
@@ -453,7 +500,7 @@ FORMS += \
     src/ui/DroneshareDialog.ui \
     src/ui/uas/PreFlightCalibrationDialog.ui \
     src/ui/configuration/RadioFlashWizard.ui \
-    src/OwnFlow/ui/OwnFlowInterface.ui
+    src/OwnFlow/ui/OwnFlowWidget.ui
 
 HEADERS += \
     src/MG.h \
@@ -683,7 +730,10 @@ HEADERS += \
     src/ui/VibrationMonitor.h \
     src/ui/EKFMonitor.h \
     src/Settings.h \
-    src/OwnFlow/ui/OwnFlowInterface.h
+    src/OwnFlow/ui/OwnFlowCore.h \
+    src/OwnFlow/ui/Capture.h \
+    src/OwnFlow/ui/OwnFlowWidget.h
+
 
 
 SOURCES += src/main.cc \
@@ -907,7 +957,10 @@ SOURCES += src/main.cc \
     src/ui/VibrationMonitor.cpp \
     src/ui/EKFMonitor.cpp \
     src/Settings.cpp \
-    src/OwnFlow/ui/OwnFlowInterface.cpp
+    src/OwnFlow/ui/OwnFlowCore.cpp \
+    src/OwnFlow/ui/Capture.cpp \
+    src/OwnFlow/ui/OwnFlowWidget.cpp
+
 
 
 MacBuild | WindowsBuild : contains(GOOGLEEARTH, enable) { #fix this to make sense ;)

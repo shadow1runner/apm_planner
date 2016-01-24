@@ -32,6 +32,8 @@ This file is part of the QGROUNDCONTROL project
 #include "MainWindow.h"
 #include "configuration.h"
 #include "QsLog.h"
+#include "src/OwnFlow/ui/OwnFlowCore.h"
+#include <opencv2/core/core.hpp>
 #include <QtWidgets/QApplication>
 
 /* SDL does ugly things to main() */
@@ -62,12 +64,17 @@ void msgHandler( QtMsgType type, const char* msg )
  * @return exit code, 0 for normal exit and !=0 for error cases
  */
 
+// necessary - otherwhise queueing (for inter-thread communication fails: QObject::connect: Cannot queue arguments of type 'cv::Mat' (Make sure 'cv::Mat' is registered using qRegisterMetaType().)
+Q_DECLARE_METATYPE(cv::Mat)
+
 int main(int argc, char *argv[])
 {
 // install the message handler
 #ifdef Q_OS_WIN
     //qInstallMsgHandler( msgHandler );
 #endif
+
+    qRegisterMetaType<cv::Mat>(); // necessary - otherwhise queueing (for inter-thread communication fails: QObject::connect: Cannot queue arguments of type 'cv::Mat' (Make sure 'cv::Mat' is registered using qRegisterMetaType().)
 
     QGCCore core(argc, argv);
     // init the logging mechanism
