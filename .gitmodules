@@ -1,0 +1,3 @@
+[submodule "src/OpticalFlow"]
+	path = src/OpticalFlow
+	url = https://shadow1runner@bitbucket.org/shadow1runner/opticalflow.git

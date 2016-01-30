@@ -38,14 +38,10 @@ user_config.pri
 *.ipch
 *.pdb
 *.sln
-*.sln
-*.vcproj
 *.user
-*.ncb
 *.idb
 *.project
 *.cproject
-*.sln
 *.suo
 *.uhf.txt
 *.opensdf
@@ -58,3 +54,5 @@ deploy/*.dll
 .qmake.stash
 libs/lib/Frameworks/GStreamer.framework/
 
+/apmPlanner2.sublime-project
+/apmPlanner2.sublime-workspace
